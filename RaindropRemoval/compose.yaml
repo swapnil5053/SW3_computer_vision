@@ -1,0 +1,103 @@
+services:
+  detection:
+    container_name: ardcnn
+    build: 
+      context: ./RaindropRmv
+      dockerfile: scripts/Dockerfile
+    image: ardcnn:cuda12
+    volumes:
+      - ./RaindropRmv:/workspace
+    ports:
+      - "8000:8000"
+    networks:
+      - cv_network
+    environment:
+      - HOST_CALLBACK_URL=http://host.docker.internal:8000
+    extra_hosts:
+      - "host.docker.internal:host-gateway"  # For Linux compatibility
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+
+  reconstruction:
+    container_name: lama
+    build:
+      context: ./lama/docker
+      dockerfile: Dockerfile-cuda111
+      no_cache: true
+    image: windj007/lama:cuda111
+    volumes:
+      - ./lama:/workspace/lama
+    ports:
+      - "8002:8002"
+    networks:
+      - cv_network  
+    entrypoint: ["/bin/bash", "-c", "cd /workspace/lama && python lama_api.py"]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+
+  # dehazing:
+  #   container_name: dehazing
+  #   build:
+  #     context: ./aodnet_backend
+  #     dockerfile: Dockerfile
+  #   image: dehazing:latest
+  #   volumes:
+  #     - ./dehazing:/workspace
+  #   ports:
+  #     - "8003:8000"
+  #   networks:
+  #     - cv_network
+  
+  # glare:
+  #   build: 
+  #     context: ./glare_reduction/backend
+  #     dockerfile: Dockerfile-cuda
+  #   container_name: night_vision_backend
+  #   image: night_vision_backend:cuda
+  #   ports:
+  #     - "8004:8000"
+  #   volumes:
+  #     - ./glare_reduction/backend:/app
+  #     - ./glare_reduction/backend/temp:/app/temp
+  #   networks:
+  #     - cv_network
+  #   restart: always
+  #   deploy:
+  #     resources:
+  #       reservations:
+  #         devices:
+  #           - capabilities: [gpu]
+
+  # low_light:
+  #   build:
+  #     context: ./low_light
+  #     dockerfile: Dockerfile
+  #   container_name: low_light
+  #   image: lowlight:latest
+  #   ports: 
+  #     - "8005:8000"
+  #   volumes:
+  #     - ./low_light:/app
+  #     - ./low_light/temp:/app/temp
+  #   networks:
+  #     - cv_network
+  #   environment:
+  #     - HOST_CALLBACK_URL=http://host.docker.internal:8000  # Add this line
+  #   extra_hosts:
+  #     - "host.docker.internal:host-gateway"  # Add this line
+  #   restart: always
+  #   deploy:
+  #     resources:
+  #       reservations:
+  #         devices:
+  #           - capabilities: [gpu]
+
+networks:
+  cv_network:
+    driver: bridge

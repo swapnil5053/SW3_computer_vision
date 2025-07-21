@@ -1,0 +1,13 @@
+FROM tensorflow/tensorflow:2.15.0
+
+# Use apt-get update and upgrade properly
+RUN apt-get update && \
+    apt-get install -y sudo libgl1
+
+# Install Python packages
+RUN pip install --upgrade pip
+
+RUN pip install opencv-python scipy numpy==1.26.4 \
+    imageio IPython scikit-learn tqdm
+
+EXPOSE 8000

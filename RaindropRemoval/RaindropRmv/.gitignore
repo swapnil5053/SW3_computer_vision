@@ -1,0 +1,6 @@
+id_*
+__pycache__*
+__pycache__/
+.code*
+.coode/*
+output/

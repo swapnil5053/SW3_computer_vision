@@ -1,0 +1,1303 @@
+{
+  "processing_method": "unet_with_classifier",
+  "total_input_frames": 714,
+  "frames_run_through_model": 143,
+  "frames_enhanced_with_unet": 3,
+  "total_processing_time_seconds": 11.443251848220825,
+  "avg_time_per_model_run_seconds": 0.08002274019734842,
+  "frame_by_frame_timings": [
+    {
+      "frame_number": 0,
+      "total_time": 0.4522519111633301,
+      "classify_time": 0.4522519111633301,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089322.2415667
+    },
+    {
+      "frame_number": 5,
+      "total_time": 0.054299116134643555,
+      "classify_time": 0.054299116134643555,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089322.3202443
+    },
+    {
+      "frame_number": 10,
+      "total_time": 0.053993940353393555,
+      "classify_time": 0.053993940353393555,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089322.3933604
+    },
+    {
+      "frame_number": 15,
+      "total_time": 0.05294299125671387,
+      "classify_time": 0.052433013916015625,
+      "process_time": 0.0005099773406982422,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089322.4643981
+    },
+    {
+      "frame_number": 20,
+      "total_time": 0.053330421447753906,
+      "classify_time": 0.052809953689575195,
+      "process_time": 0.0005204677581787109,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089322.5355167
+    },
+    {
+      "frame_number": 25,
+      "total_time": 0.05376768112182617,
+      "classify_time": 0.05376768112182617,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089322.6088188
+    },
+    {
+      "frame_number": 30,
+      "total_time": 0.050760507583618164,
+      "classify_time": 0.050760507583618164,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089322.6781738
+    },
+    {
+      "frame_number": 35,
+      "total_time": 0.052739858627319336,
+      "classify_time": 0.052739858627319336,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089322.7499535
+    },
+    {
+      "frame_number": 40,
+      "total_time": 0.05147719383239746,
+      "classify_time": 0.05147719383239746,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089322.8212466
+    },
+    {
+      "frame_number": 45,
+      "total_time": 0.05245542526245117,
+      "classify_time": 0.05193138122558594,
+      "process_time": 0.0005240440368652344,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089322.893554
+    },
+    {
+      "frame_number": 50,
+      "total_time": 0.05481982231140137,
+      "classify_time": 0.05481982231140137,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089322.967743
+    },
+    {
+      "frame_number": 55,
+      "total_time": 0.05058789253234863,
+      "classify_time": 0.05058789253234863,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089323.0376313
+    },
+    {
+      "frame_number": 60,
+      "total_time": 0.05321979522705078,
+      "classify_time": 0.05321979522705078,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089323.1086123
+    },
+    {
+      "frame_number": 65,
+      "total_time": 0.05782604217529297,
+      "classify_time": 0.05782604217529297,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089323.1860812
+    },
+    {
+      "frame_number": 70,
+      "total_time": 0.05183148384094238,
+      "classify_time": 0.05183148384094238,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089323.2672875
+    },
+    {
+      "frame_number": 75,
+      "total_time": 0.05465412139892578,
+      "classify_time": 0.05465412139892578,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089323.3432517
+    },
+    {
+      "frame_number": 80,
+      "total_time": 0.0522615909576416,
+      "classify_time": 0.0522615909576416,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089323.420273
+    },
+    {
+      "frame_number": 85,
+      "total_time": 0.05825471878051758,
+      "classify_time": 0.05765128135681152,
+      "process_time": 0.0006034374237060547,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089323.5048785
+    },
+    {
+      "frame_number": 90,
+      "total_time": 0.056272268295288086,
+      "classify_time": 0.05568861961364746,
+      "process_time": 0.000583648681640625,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089323.579374
+    },
+    {
+      "frame_number": 95,
+      "total_time": 0.0536806583404541,
+      "classify_time": 0.0536806583404541,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089323.6537352
+    },
+    {
+      "frame_number": 100,
+      "total_time": 0.05267143249511719,
+      "classify_time": 0.05267143249511719,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089323.728844
+    },
+    {
+      "frame_number": 105,
+      "total_time": 0.05201292037963867,
+      "classify_time": 0.05201292037963867,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089323.8086476
+    },
+    {
+      "frame_number": 110,
+      "total_time": 0.05265307426452637,
+      "classify_time": 0.05265307426452637,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089323.8806992
+    },
+    {
+      "frame_number": 115,
+      "total_time": 0.05675816535949707,
+      "classify_time": 0.05675816535949707,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089323.9575577
+    },
+    {
+      "frame_number": 120,
+      "total_time": 0.052182674407958984,
+      "classify_time": 0.051184892654418945,
+      "process_time": 0.000997781753540039,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089324.0433517
+    },
+    {
+      "frame_number": 125,
+      "total_time": 0.0528409481048584,
+      "classify_time": 0.0528409481048584,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089324.1179752
+    },
+    {
+      "frame_number": 130,
+      "total_time": 0.054050445556640625,
+      "classify_time": 0.054050445556640625,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089324.190126
+    },
+    {
+      "frame_number": 135,
+      "total_time": 0.05307459831237793,
+      "classify_time": 0.052552223205566406,
+      "process_time": 0.0005223751068115234,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089324.2617607
+    },
+    {
+      "frame_number": 140,
+      "total_time": 0.05275106430053711,
+      "classify_time": 0.05275106430053711,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089324.3322618
+    },
+    {
+      "frame_number": 145,
+      "total_time": 0.05419301986694336,
+      "classify_time": 0.053670644760131836,
+      "process_time": 0.0005223751068115234,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089324.4047832
+    },
+    {
+      "frame_number": 150,
+      "total_time": 0.0530242919921875,
+      "classify_time": 0.0530242919921875,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089324.4764051
+    },
+    {
+      "frame_number": 155,
+      "total_time": 0.05437636375427246,
+      "classify_time": 0.05437636375427246,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089324.548978
+    },
+    {
+      "frame_number": 160,
+      "total_time": 0.052683115005493164,
+      "classify_time": 0.052683115005493164,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089324.6185055
+    },
+    {
+      "frame_number": 165,
+      "total_time": 0.05382227897644043,
+      "classify_time": 0.05382227897644043,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089324.691972
+    },
+    {
+      "frame_number": 170,
+      "total_time": 0.05274200439453125,
+      "classify_time": 0.05274200439453125,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089324.7616105
+    },
+    {
+      "frame_number": 175,
+      "total_time": 0.05225872993469238,
+      "classify_time": 0.05225872993469238,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089324.8344681
+    },
+    {
+      "frame_number": 180,
+      "total_time": 0.05417275428771973,
+      "classify_time": 0.05365324020385742,
+      "process_time": 0.0005195140838623047,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089324.9127586
+    },
+    {
+      "frame_number": 185,
+      "total_time": 0.05324721336364746,
+      "classify_time": 0.05324721336364746,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089324.9829905
+    },
+    {
+      "frame_number": 190,
+      "total_time": 0.054270267486572266,
+      "classify_time": 0.053739309310913086,
+      "process_time": 0.0005309581756591797,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089325.0588002
+    },
+    {
+      "frame_number": 195,
+      "total_time": 0.05319809913635254,
+      "classify_time": 0.0526738166809082,
+      "process_time": 0.0005242824554443359,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089325.1338701
+    },
+    {
+      "frame_number": 200,
+      "total_time": 0.05326366424560547,
+      "classify_time": 0.05326366424560547,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089325.2054372
+    },
+    {
+      "frame_number": 205,
+      "total_time": 0.05348515510559082,
+      "classify_time": 0.05348515510559082,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089325.2815835
+    },
+    {
+      "frame_number": 210,
+      "total_time": 0.05157327651977539,
+      "classify_time": 0.05157327651977539,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089325.3519864
+    },
+    {
+      "frame_number": 215,
+      "total_time": 0.054085493087768555,
+      "classify_time": 0.05356001853942871,
+      "process_time": 0.0005254745483398438,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089325.428427
+    },
+    {
+      "frame_number": 220,
+      "total_time": 0.05143260955810547,
+      "classify_time": 0.05143260955810547,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089325.4977803
+    },
+    {
+      "frame_number": 225,
+      "total_time": 0.054006099700927734,
+      "classify_time": 0.054006099700927734,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089325.5709193
+    },
+    {
+      "frame_number": 230,
+      "total_time": 0.051607370376586914,
+      "classify_time": 0.051607370376586914,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089325.6403751
+    },
+    {
+      "frame_number": 235,
+      "total_time": 0.05279374122619629,
+      "classify_time": 0.05226922035217285,
+      "process_time": 0.0005245208740234375,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089325.7132633
+    },
+    {
+      "frame_number": 240,
+      "total_time": 0.05304884910583496,
+      "classify_time": 0.05304884910583496,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089325.7836735
+    },
+    {
+      "frame_number": 245,
+      "total_time": 0.05210113525390625,
+      "classify_time": 0.05210113525390625,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089325.8604183
+    },
+    {
+      "frame_number": 250,
+      "total_time": 0.05351614952087402,
+      "classify_time": 0.05351614952087402,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089325.9369295
+    },
+    {
+      "frame_number": 255,
+      "total_time": 0.053200721740722656,
+      "classify_time": 0.053200721740722656,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089326.0240605
+    },
+    {
+      "frame_number": 260,
+      "total_time": 0.05366969108581543,
+      "classify_time": 0.05366969108581543,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089326.0987544
+    },
+    {
+      "frame_number": 265,
+      "total_time": 0.05235743522644043,
+      "classify_time": 0.05235743522644043,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089326.1697524
+    },
+    {
+      "frame_number": 270,
+      "total_time": 0.05414319038391113,
+      "classify_time": 0.05314803123474121,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089326.2408884
+    },
+    {
+      "frame_number": 275,
+      "total_time": 0.0573124885559082,
+      "classify_time": 0.05667924880981445,
+      "process_time": 0.00063323974609375,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089326.3235931
+    },
+    {
+      "frame_number": 280,
+      "total_time": 0.06093430519104004,
+      "classify_time": 0.06093430519104004,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089326.402085
+    },
+    {
+      "frame_number": 285,
+      "total_time": 0.05327916145324707,
+      "classify_time": 0.05327916145324707,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089326.4729226
+    },
+    {
+      "frame_number": 290,
+      "total_time": 0.05646967887878418,
+      "classify_time": 0.055939674377441406,
+      "process_time": 0.0005300045013427734,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089326.5562646
+    },
+    {
+      "frame_number": 295,
+      "total_time": 0.05546736717224121,
+      "classify_time": 0.05546736717224121,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089326.632436
+    },
+    {
+      "frame_number": 300,
+      "total_time": 0.05319571495056152,
+      "classify_time": 0.05319571495056152,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089326.7028625
+    },
+    {
+      "frame_number": 305,
+      "total_time": 0.054874420166015625,
+      "classify_time": 0.054874420166015625,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089326.7825427
+    },
+    {
+      "frame_number": 310,
+      "total_time": 0.0543367862701416,
+      "classify_time": 0.05380082130432129,
+      "process_time": 0.0005359649658203125,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089326.8606138
+    },
+    {
+      "frame_number": 315,
+      "total_time": 0.05327963829040527,
+      "classify_time": 0.05327963829040527,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089326.936989
+    },
+    {
+      "frame_number": 320,
+      "total_time": 0.05328035354614258,
+      "classify_time": 0.05328035354614258,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089327.0114682
+    },
+    {
+      "frame_number": 325,
+      "total_time": 0.0538935661315918,
+      "classify_time": 0.0538935661315918,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089327.0850976
+    },
+    {
+      "frame_number": 330,
+      "total_time": 0.05416703224182129,
+      "classify_time": 0.05416703224182129,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089327.1550357
+    },
+    {
+      "frame_number": 335,
+      "total_time": 0.053009748458862305,
+      "classify_time": 0.053009748458862305,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089327.2272053
+    },
+    {
+      "frame_number": 340,
+      "total_time": 0.05238056182861328,
+      "classify_time": 0.05238056182861328,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089327.2978482
+    },
+    {
+      "frame_number": 345,
+      "total_time": 0.052315473556518555,
+      "classify_time": 0.052315473556518555,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089327.3734214
+    },
+    {
+      "frame_number": 350,
+      "total_time": 0.05243277549743652,
+      "classify_time": 0.05243277549743652,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089327.4437165
+    },
+    {
+      "frame_number": 355,
+      "total_time": 0.05350542068481445,
+      "classify_time": 0.05297708511352539,
+      "process_time": 0.0005283355712890625,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089327.516579
+    },
+    {
+      "frame_number": 360,
+      "total_time": 0.05370306968688965,
+      "classify_time": 0.05370306968688965,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089327.5905838
+    },
+    {
+      "frame_number": 365,
+      "total_time": 0.05256319046020508,
+      "classify_time": 0.05256319046020508,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089327.6622434
+    },
+    {
+      "frame_number": 370,
+      "total_time": 0.052958011627197266,
+      "classify_time": 0.052958011627197266,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089327.7342162
+    },
+    {
+      "frame_number": 375,
+      "total_time": 0.05390167236328125,
+      "classify_time": 0.05337834358215332,
+      "process_time": 0.0005233287811279297,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089327.8082025
+    },
+    {
+      "frame_number": 380,
+      "total_time": 0.05258798599243164,
+      "classify_time": 0.05258798599243164,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089327.8789992
+    },
+    {
+      "frame_number": 385,
+      "total_time": 0.05765795707702637,
+      "classify_time": 0.0571286678314209,
+      "process_time": 0.0005292892456054688,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089327.9614842
+    },
+    {
+      "frame_number": 390,
+      "total_time": 0.05422472953796387,
+      "classify_time": 0.05422472953796387,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089328.0370724
+    },
+    {
+      "frame_number": 395,
+      "total_time": 0.05409431457519531,
+      "classify_time": 0.05357170104980469,
+      "process_time": 0.000522613525390625,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089328.1243286
+    },
+    {
+      "frame_number": 400,
+      "total_time": 0.053333282470703125,
+      "classify_time": 0.052806854248046875,
+      "process_time": 0.00052642822265625,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089328.196641
+    },
+    {
+      "frame_number": 405,
+      "total_time": 0.056217193603515625,
+      "classify_time": 0.056217193603515625,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089328.280378
+    },
+    {
+      "frame_number": 410,
+      "total_time": 0.05459403991699219,
+      "classify_time": 0.05459403991699219,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089328.3574264
+    },
+    {
+      "frame_number": 415,
+      "total_time": 0.05425214767456055,
+      "classify_time": 0.05425214767456055,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089328.4291475
+    },
+    {
+      "frame_number": 420,
+      "total_time": 0.05859065055847168,
+      "classify_time": 0.058084726333618164,
+      "process_time": 0.0005059242248535156,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089328.5056293
+    },
+    {
+      "frame_number": 425,
+      "total_time": 0.05457925796508789,
+      "classify_time": 0.05350351333618164,
+      "process_time": 0.0005688667297363281,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089328.5838313
+    },
+    {
+      "frame_number": 430,
+      "total_time": 0.30983734130859375,
+      "classify_time": 0.05223512649536133,
+      "process_time": 0.2576022148132324,
+      "is_low_light": true,
+      "was_enhanced": true,
+      "timestamp": 1753089328.9143832
+    },
+    {
+      "frame_number": 435,
+      "total_time": 0.1842949390411377,
+      "classify_time": 0.054326534271240234,
+      "process_time": 0.12996840476989746,
+      "is_low_light": true,
+      "was_enhanced": true,
+      "timestamp": 1753089329.12274
+    },
+    {
+      "frame_number": 440,
+      "total_time": 0.18262767791748047,
+      "classify_time": 0.052959442138671875,
+      "process_time": 0.1296682357788086,
+      "is_low_light": true,
+      "was_enhanced": true,
+      "timestamp": 1753089329.3201158
+    },
+    {
+      "frame_number": 445,
+      "total_time": 0.05360054969787598,
+      "classify_time": 0.05360054969787598,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089329.3879063
+    },
+    {
+      "frame_number": 450,
+      "total_time": 0.05499863624572754,
+      "classify_time": 0.0540156364440918,
+      "process_time": 0.0009829998016357422,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089329.4562047
+    },
+    {
+      "frame_number": 455,
+      "total_time": 0.06064462661743164,
+      "classify_time": 0.06064462661743164,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089329.532762
+    },
+    {
+      "frame_number": 460,
+      "total_time": 0.0515596866607666,
+      "classify_time": 0.051033973693847656,
+      "process_time": 0.0005257129669189453,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089329.601103
+    },
+    {
+      "frame_number": 465,
+      "total_time": 0.05519986152648926,
+      "classify_time": 0.054676055908203125,
+      "process_time": 0.0005238056182861328,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089329.6703875
+    },
+    {
+      "frame_number": 470,
+      "total_time": 0.053522586822509766,
+      "classify_time": 0.053522586822509766,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089329.7391107
+    },
+    {
+      "frame_number": 475,
+      "total_time": 0.055283546447753906,
+      "classify_time": 0.055283546447753906,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089329.81088
+    },
+    {
+      "frame_number": 480,
+      "total_time": 0.05545854568481445,
+      "classify_time": 0.05545854568481445,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089329.8829982
+    },
+    {
+      "frame_number": 485,
+      "total_time": 0.054440975189208984,
+      "classify_time": 0.05391883850097656,
+      "process_time": 0.0005221366882324219,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089329.9539673
+    },
+    {
+      "frame_number": 490,
+      "total_time": 0.0582127571105957,
+      "classify_time": 0.0582127571105957,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089330.0285444
+    },
+    {
+      "frame_number": 495,
+      "total_time": 0.05408883094787598,
+      "classify_time": 0.05354428291320801,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089330.0968318
+    },
+    {
+      "frame_number": 500,
+      "total_time": 0.05201601982116699,
+      "classify_time": 0.05201601982116699,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089330.1634514
+    },
+    {
+      "frame_number": 505,
+      "total_time": 0.062361717224121094,
+      "classify_time": 0.062361717224121094,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089330.2404513
+    },
+    {
+      "frame_number": 510,
+      "total_time": 0.05588960647583008,
+      "classify_time": 0.05588960647583008,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089330.3100414
+    },
+    {
+      "frame_number": 515,
+      "total_time": 0.05195474624633789,
+      "classify_time": 0.05195474624633789,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089330.3756196
+    },
+    {
+      "frame_number": 520,
+      "total_time": 0.056870222091674805,
+      "classify_time": 0.056870222091674805,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089330.4471588
+    },
+    {
+      "frame_number": 525,
+      "total_time": 0.05545783042907715,
+      "classify_time": 0.05494117736816406,
+      "process_time": 0.0005166530609130859,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089330.5180452
+    },
+    {
+      "frame_number": 530,
+      "total_time": 0.05465984344482422,
+      "classify_time": 0.05465984344482422,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089330.5864217
+    },
+    {
+      "frame_number": 535,
+      "total_time": 0.05541038513183594,
+      "classify_time": 0.05541038513183594,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089330.6591492
+    },
+    {
+      "frame_number": 540,
+      "total_time": 0.05634570121765137,
+      "classify_time": 0.05634570121765137,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089330.730122
+    },
+    {
+      "frame_number": 545,
+      "total_time": 0.05710721015930176,
+      "classify_time": 0.056580543518066406,
+      "process_time": 0.0005266666412353516,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089330.8010707
+    },
+    {
+      "frame_number": 550,
+      "total_time": 0.052159786224365234,
+      "classify_time": 0.052159786224365234,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089330.8716965
+    },
+    {
+      "frame_number": 555,
+      "total_time": 0.06137371063232422,
+      "classify_time": 0.06137371063232422,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089330.9474704
+    },
+    {
+      "frame_number": 560,
+      "total_time": 0.05317378044128418,
+      "classify_time": 0.05317378044128418,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089331.015026
+    },
+    {
+      "frame_number": 565,
+      "total_time": 0.05571436882019043,
+      "classify_time": 0.05571436882019043,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089331.087874
+    },
+    {
+      "frame_number": 570,
+      "total_time": 0.05511116981506348,
+      "classify_time": 0.05511116981506348,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089331.1602173
+    },
+    {
+      "frame_number": 575,
+      "total_time": 0.0547640323638916,
+      "classify_time": 0.0547640323638916,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089331.2359047
+    },
+    {
+      "frame_number": 580,
+      "total_time": 0.05473899841308594,
+      "classify_time": 0.05473899841308594,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089331.3056219
+    },
+    {
+      "frame_number": 585,
+      "total_time": 0.05451202392578125,
+      "classify_time": 0.05451202392578125,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089331.3750725
+    },
+    {
+      "frame_number": 590,
+      "total_time": 0.05479860305786133,
+      "classify_time": 0.05479860305786133,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089331.4454272
+    },
+    {
+      "frame_number": 595,
+      "total_time": 0.053159236907958984,
+      "classify_time": 0.053159236907958984,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089331.515893
+    },
+    {
+      "frame_number": 600,
+      "total_time": 0.059256792068481445,
+      "classify_time": 0.058725833892822266,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089331.594567
+    },
+    {
+      "frame_number": 605,
+      "total_time": 0.0549168586730957,
+      "classify_time": 0.0549168586730957,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089331.66807
+    },
+    {
+      "frame_number": 610,
+      "total_time": 0.05392122268676758,
+      "classify_time": 0.05392122268676758,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089331.7402782
+    },
+    {
+      "frame_number": 615,
+      "total_time": 0.057427167892456055,
+      "classify_time": 0.057427167892456055,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089331.8155932
+    },
+    {
+      "frame_number": 620,
+      "total_time": 0.05504918098449707,
+      "classify_time": 0.05504918098449707,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089331.888966
+    },
+    {
+      "frame_number": 625,
+      "total_time": 0.05591177940368652,
+      "classify_time": 0.05591177940368652,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089331.9605691
+    },
+    {
+      "frame_number": 630,
+      "total_time": 0.05398368835449219,
+      "classify_time": 0.05398368835449219,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089332.028718
+    },
+    {
+      "frame_number": 635,
+      "total_time": 0.0567319393157959,
+      "classify_time": 0.0567319393157959,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089332.1053627
+    },
+    {
+      "frame_number": 640,
+      "total_time": 0.05614519119262695,
+      "classify_time": 0.05614519119262695,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089332.1741898
+    },
+    {
+      "frame_number": 645,
+      "total_time": 0.055768728256225586,
+      "classify_time": 0.055768728256225586,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089332.2439587
+    },
+    {
+      "frame_number": 650,
+      "total_time": 0.05371737480163574,
+      "classify_time": 0.05371737480163574,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089332.3150585
+    },
+    {
+      "frame_number": 655,
+      "total_time": 0.059107065200805664,
+      "classify_time": 0.05857539176940918,
+      "process_time": 0.0005316734313964844,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089332.3911877
+    },
+    {
+      "frame_number": 660,
+      "total_time": 0.0589139461517334,
+      "classify_time": 0.0589139461517334,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089332.46847
+    },
+    {
+      "frame_number": 665,
+      "total_time": 0.05202627182006836,
+      "classify_time": 0.05149054527282715,
+      "process_time": 0.0005357265472412109,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089332.5347433
+    },
+    {
+      "frame_number": 670,
+      "total_time": 0.06161999702453613,
+      "classify_time": 0.06161999702453613,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089332.6132834
+    },
+    {
+      "frame_number": 675,
+      "total_time": 0.052805423736572266,
+      "classify_time": 0.052805423736572266,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089332.6787
+    },
+    {
+      "frame_number": 680,
+      "total_time": 0.05255317687988281,
+      "classify_time": 0.05255317687988281,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089332.7437332
+    },
+    {
+      "frame_number": 685,
+      "total_time": 0.05350470542907715,
+      "classify_time": 0.05350470542907715,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089332.8102868
+    },
+    {
+      "frame_number": 690,
+      "total_time": 0.051782846450805664,
+      "classify_time": 0.051782846450805664,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089332.8746548
+    },
+    {
+      "frame_number": 695,
+      "total_time": 0.053652286529541016,
+      "classify_time": 0.053652286529541016,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089332.9420862
+    },
+    {
+      "frame_number": 700,
+      "total_time": 0.05477190017700195,
+      "classify_time": 0.05477190017700195,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089333.0109155
+    },
+    {
+      "frame_number": 705,
+      "total_time": 0.053179025650024414,
+      "classify_time": 0.05265998840332031,
+      "process_time": 0.0005190372467041016,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089333.0747442
+    },
+    {
+      "frame_number": 710,
+      "total_time": 0.050838470458984375,
+      "classify_time": 0.050838470458984375,
+      "process_time": 0.0,
+      "is_low_light": false,
+      "was_enhanced": false,
+      "timestamp": 1753089333.137852
+    }
+  ],
+  "video_info": {
+    "input_path": "C:\\Users\\amogh\\OneDrive\\Desktop\\final_build_not_final_cause_their_graphs_dont_work\\backend\\uploaded_videos\\WhatsApp Video 2025-07-21 at 14.08.07_37c5d5af.mp4",
+    "output_path": "C:\\Users\\amogh\\OneDrive\\Desktop\\final_build_not_final_cause_their_graphs_dont_work\\backend\\processed_videos\\processed_unet_WhatsApp Video 2025-07-21 at 14.08.07_37c5d5af.mp4",
+    "original_fps": 24.0,
+    "output_resolution": "960x540"
+  }
+}

@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+aiohttp
+python-multipart
+pymongo[srv]
+psutil 
+GPUtil 
+opencv-python

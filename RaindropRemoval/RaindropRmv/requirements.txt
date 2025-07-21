@@ -1,0 +1,8 @@
+tensorflow-gpu==2.10.1
+opencv-python
+scipy
+numpy==1.21.6
+imageio
+IPython
+scikit-learn
+tqdm

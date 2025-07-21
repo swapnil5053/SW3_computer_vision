@@ -1,0 +1,112 @@
+{
+  "processing_method": "clahe_with_classifier",
+  "total_input_frames": 56,
+  "frames_run_through_model": 12,
+  "frames_enhanced_with_clahe": 12,
+  "total_processing_time_seconds": 19.653400421142578,
+  "avg_time_per_model_run_seconds": 1.6031227509180705,
+  "frame_by_frame_timings": [
+    {
+      "frame_number": 0,
+      "total_time": 2.2984325885772705,
+      "classify_time": 1.7691903114318848,
+      "enhance_time": 0.5099315643310547,
+      "is_low_light": true,
+      "timestamp": 1753077046.741492
+    },
+    {
+      "frame_number": 5,
+      "total_time": 1.5226261615753174,
+      "classify_time": 1.5066542625427246,
+      "enhance_time": 0.009962081909179688,
+      "is_low_light": true,
+      "timestamp": 1753077048.2935574
+    },
+    {
+      "frame_number": 10,
+      "total_time": 1.5271716117858887,
+      "classify_time": 1.5147204399108887,
+      "enhance_time": 0.006903171539306641,
+      "is_low_light": true,
+      "timestamp": 1753077049.8484902
+    },
+    {
+      "frame_number": 15,
+      "total_time": 1.546682357788086,
+      "classify_time": 1.5351388454437256,
+      "enhance_time": 0.006997585296630859,
+      "is_low_light": true,
+      "timestamp": 1753077051.4192748
+    },
+    {
+      "frame_number": 20,
+      "total_time": 1.4873743057250977,
+      "classify_time": 1.4720921516418457,
+      "enhance_time": 0.006995677947998047,
+      "is_low_light": true,
+      "timestamp": 1753077052.9327419
+    },
+    {
+      "frame_number": 25,
+      "total_time": 1.5174674987792969,
+      "classify_time": 1.50410795211792,
+      "enhance_time": 0.00713658332824707,
+      "is_low_light": true,
+      "timestamp": 1753077054.4785445
+    },
+    {
+      "frame_number": 30,
+      "total_time": 1.5301861763000488,
+      "classify_time": 1.5161304473876953,
+      "enhance_time": 0.0065190792083740234,
+      "is_low_light": true,
+      "timestamp": 1753077056.0346687
+    },
+    {
+      "frame_number": 35,
+      "total_time": 1.5966622829437256,
+      "classify_time": 1.5814564228057861,
+      "enhance_time": 0.008512258529663086,
+      "is_low_light": true,
+      "timestamp": 1753077057.6556923
+    },
+    {
+      "frame_number": 40,
+      "total_time": 1.5255353450775146,
+      "classify_time": 1.5090935230255127,
+      "enhance_time": 0.00950479507446289,
+      "is_low_light": true,
+      "timestamp": 1753077059.2068777
+    },
+    {
+      "frame_number": 45,
+      "total_time": 1.554490327835083,
+      "classify_time": 1.5396976470947266,
+      "enhance_time": 0.0092315673828125,
+      "is_low_light": true,
+      "timestamp": 1753077060.7921834
+    },
+    {
+      "frame_number": 50,
+      "total_time": 1.6205480098724365,
+      "classify_time": 1.6067783832550049,
+      "enhance_time": 0.006996870040893555,
+      "is_low_light": true,
+      "timestamp": 1753077062.446038
+    },
+    {
+      "frame_number": 55,
+      "total_time": 1.51029634475708,
+      "classify_time": 1.4986732006072998,
+      "enhance_time": 0.007517576217651367,
+      "is_low_light": true,
+      "timestamp": 1753077063.9778438
+    }
+  ],
+  "video_info": {
+    "input_path": "C:\\Users\\prajw\\OneDrive\\Desktop\\CIE-SW3\\backend\\uploaded_videos\\one_second.mp4",
+    "output_path": "C:\\Users\\prajw\\OneDrive\\Desktop\\CIE-SW3\\backend\\processed_videos\\processed_clahe_one_second.mp4",
+    "original_fps": 29.917726252804787,
+    "output_resolution": "480x856"
+  }
+}
