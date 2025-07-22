@@ -114,7 +114,7 @@ export const LineGraph: React.FC<LineGraphProps> = ({ frameData, performance, on
     ctx.textAlign = 'center';
     for (let i = 0; i <= 10; i++) {
       const x = padding.left + (chartWidth / 10) * i;
-      const frameNum = Math.round((frameData?.length ?? 0 * i) / 10);
+      const frameNum = Math.round(((frameData?.length ?? 0) * i) / 10);
       ctx.fillText(frameNum.toString(), x, height - padding.bottom + 20);
     }
   }, [frameData, maxTime]);

@@ -6,8 +6,6 @@ requests
 tqdm
 matplotlib
 kornia
-
-# PyTorch (CPU-only for macOS ARM)
 torch==2.2.0
 torchvision==0.17.0
 torchaudio==2.2.0
@@ -15,12 +13,10 @@ torchaudio==2.2.0
 # FastAPI server
 fastapi
 uvicorn[standard]
+python-multipart
 
 # MongoDB & system utilities
 pymongo
 psutil
 GPUtil
-
-# Optional: For subprocesses or general purpose
 platformdirs
-python-multipart

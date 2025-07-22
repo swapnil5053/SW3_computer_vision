@@ -1,0 +1,163 @@
+{
+  "processing_method": "raindrop_removal",
+  "model_used": "ARDCNN + LaMa",
+  "total_input_frames": 21,
+  "frames_processed": 21,
+  "total_processing_time_seconds": 63.96005320549011,
+  "avg_time_per_frame_seconds": 3.045716819309053,
+  "frame_by_frame_timings": [
+    {
+      "frame_number": 0,
+      "total_time": 11.081037282943726,
+      "process_time": 11.081037282943726,
+      "was_processed": true,
+      "timestamp": 1753148707.7683587
+    },
+    {
+      "frame_number": 1,
+      "total_time": 2.6538333892822266,
+      "process_time": 2.6538333892822266,
+      "was_processed": true,
+      "timestamp": 1753148710.426645
+    },
+    {
+      "frame_number": 2,
+      "total_time": 2.3834807872772217,
+      "process_time": 2.3834807872772217,
+      "was_processed": true,
+      "timestamp": 1753148712.8195434
+    },
+    {
+      "frame_number": 3,
+      "total_time": 2.6835482120513916,
+      "process_time": 2.6835482120513916,
+      "was_processed": true,
+      "timestamp": 1753148715.5081587
+    },
+    {
+      "frame_number": 4,
+      "total_time": 2.7071311473846436,
+      "process_time": 2.7071311473846436,
+      "was_processed": true,
+      "timestamp": 1753148718.2204936
+    },
+    {
+      "frame_number": 5,
+      "total_time": 2.434657096862793,
+      "process_time": 2.434657096862793,
+      "was_processed": true,
+      "timestamp": 1753148720.6594827
+    },
+    {
+      "frame_number": 6,
+      "total_time": 2.650925874710083,
+      "process_time": 2.650925874710083,
+      "was_processed": true,
+      "timestamp": 1753148723.3148959
+    },
+    {
+      "frame_number": 7,
+      "total_time": 2.775414228439331,
+      "process_time": 2.775414228439331,
+      "was_processed": true,
+      "timestamp": 1753148726.0942569
+    },
+    {
+      "frame_number": 8,
+      "total_time": 2.723989963531494,
+      "process_time": 2.723989963531494,
+      "was_processed": true,
+      "timestamp": 1753148728.8230207
+    },
+    {
+      "frame_number": 9,
+      "total_time": 3.182888984680176,
+      "process_time": 3.182888984680176,
+      "was_processed": true,
+      "timestamp": 1753148732.0108685
+    },
+    {
+      "frame_number": 10,
+      "total_time": 2.7060511112213135,
+      "process_time": 2.7060511112213135,
+      "was_processed": true,
+      "timestamp": 1753148734.7225103
+    },
+    {
+      "frame_number": 11,
+      "total_time": 3.675671100616455,
+      "process_time": 3.675671100616455,
+      "was_processed": true,
+      "timestamp": 1753148738.4036202
+    },
+    {
+      "frame_number": 12,
+      "total_time": 2.833401918411255,
+      "process_time": 2.833401918411255,
+      "was_processed": true,
+      "timestamp": 1753148741.243056
+    },
+    {
+      "frame_number": 13,
+      "total_time": 2.19165301322937,
+      "process_time": 2.19165301322937,
+      "was_processed": true,
+      "timestamp": 1753148743.454799
+    },
+    {
+      "frame_number": 14,
+      "total_time": 2.276998281478882,
+      "process_time": 2.276998281478882,
+      "was_processed": true,
+      "timestamp": 1753148745.7377632
+    },
+    {
+      "frame_number": 15,
+      "total_time": 2.549943685531616,
+      "process_time": 2.549943685531616,
+      "was_processed": true,
+      "timestamp": 1753148748.2928567
+    },
+    {
+      "frame_number": 16,
+      "total_time": 2.4752628803253174,
+      "process_time": 2.4752628803253174,
+      "was_processed": true,
+      "timestamp": 1753148750.7728643
+    },
+    {
+      "frame_number": 17,
+      "total_time": 2.4298391342163086,
+      "process_time": 2.4298391342163086,
+      "was_processed": true,
+      "timestamp": 1753148753.2076142
+    },
+    {
+      "frame_number": 18,
+      "total_time": 2.4751386642456055,
+      "process_time": 2.4751386642456055,
+      "was_processed": true,
+      "timestamp": 1753148755.6876543
+    },
+    {
+      "frame_number": 19,
+      "total_time": 2.653663396835327,
+      "process_time": 2.653663396835327,
+      "was_processed": true,
+      "timestamp": 1753148758.3462663
+    },
+    {
+      "frame_number": 20,
+      "total_time": 2.415523052215576,
+      "process_time": 2.415523052215576,
+      "was_processed": true,
+      "timestamp": 1753148760.76768
+    }
+  ],
+  "video_info": {
+    "input_path": "/tmp/tmpqx2yiak9.mp4",
+    "output_path": "cleaned_1753148691286_cleaned_video.mp4",
+    "original_fps": 30.0,
+    "output_resolution": "480x270"
+  }
+}

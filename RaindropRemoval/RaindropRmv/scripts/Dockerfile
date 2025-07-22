@@ -12,7 +12,9 @@ RUN pip install --upgrade pip
 
 RUN pip install opencv-python scipy numpy==1.26.4 \
     imageio IPython scikit-learn tqdm \
-    fastapi uvicorn python-multipart requests pillow
+    fastapi uvicorn python-multipart requests pillow 
+
+RUN pip install pymongo GPUtil psutil
 
 RUN mkdir -p /workspace
 WORKDIR /workspace

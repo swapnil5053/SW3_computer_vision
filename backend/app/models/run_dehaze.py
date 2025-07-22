@@ -9,6 +9,8 @@ import sys
 import subprocess
 from tqdm import tqdm
 from PIL import Image
+import time
+import json
 
 class AODnet(nn.Module):
     def __init__(self):
@@ -59,20 +61,30 @@ def load_model(ckpt_path, device):
 def process_video(input_path, output_path, model_path):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     network = load_model(model_path, device)
-    transform = transforms.Compose([transforms.ToPILImage(), transforms.Resize([480, 640]), transforms.ToTensor()])
     
     video_capture = cv2.VideoCapture(input_path)
     fps = video_capture.get(cv2.CAP_PROP_FPS)
     total_frames = int(video_capture.get(cv2.CAP_PROP_FRAME_COUNT))
+    width = int(video_capture.get(cv2.CAP_PROP_FRAME_WIDTH))
+    height = int(video_capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    
+    transform = transforms.Compose([transforms.ToPILImage(), transforms.ToTensor()])
     
     # Use a temporary path for the video without audio
     temp_video_path = f"{output_path}.tmp.mp4"
-    video_writer = cv2.VideoWriter(temp_video_path, cv2.VideoWriter_fourcc(*'mp4v'), fps, (640, 480))
+    video_writer = cv2.VideoWriter(temp_video_path, cv2.VideoWriter_fourcc(*'mp4v'), fps, (width, height))
+
+    frame_timings = []
+    frame_count = 0
+    total_processing_time = 0
+    start_time = time.time()
 
     for _ in tqdm(range(total_frames), desc=f"Dehazing Video"):
         ret, frame = video_capture.read()
         if not ret:
             break
+
+        frame_start_time = time.time()
         
         frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         input_tensor = transform(frame_rgb).unsqueeze(0).to(device)
@@ -83,9 +95,43 @@ def process_video(input_path, output_path, model_path):
         dehazed_frame = np.transpose(dehazed_tensor.squeeze(0).cpu().numpy(), (1, 2, 0))
         dehazed_frame_bgr = cv2.cvtColor((dehazed_frame * 255).astype(np.uint8), cv2.COLOR_RGB2BGR)
         video_writer.write(dehazed_frame_bgr)
+
+        frame_processing_time = time.time() - frame_start_time
+        total_processing_time += frame_processing_time
+
+        frame_timings.append({
+            "frame_number": frame_count,
+            "total_time": frame_processing_time,
+            "classify_time": 0,
+            "process_time": frame_processing_time,
+            "is_low_light": True,
+            "was_enhanced": True,
+            "timestamp": time.time()
+        })
+        
+        frame_count += 1
         
     video_capture.release()
     video_writer.release()
+
+    elapsed_time = time.time() - start_time
+    timing_output_path = output_path.replace('.mp4', '_timings.json')
+    timing_data = {
+        "processing_method": "dehazing",
+        "total_input_frames": frame_count,
+        "total_processing_time_seconds": elapsed_time,
+        "avg_time_per_frame_seconds": total_processing_time / frame_count if frame_count > 0 else 0,
+        "frame_by_frame_timings": frame_timings,
+        "video_info": {
+            "input_path": input_path,
+            "output_path": output_path,
+            "original_fps": fps,
+            "output_resolution": f"{width}x{height}"
+        }
+    }
+
+    with open(timing_output_path, 'w') as f:
+        json.dump(timing_data, f, indent=2)
 
     # Add audio from original video to the processed video
     command = [

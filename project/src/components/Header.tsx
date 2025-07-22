@@ -15,8 +15,8 @@ export const Header: React.FC<HeaderProps> = ({ methods, activeMethod, onMethodC
         <div className="flex items-center space-x-3">
           <Monitor className="w-8 h-8 text-teal-400" />
           <div>
-            <h1 className="text-xl font-bold text-white">CIE-SW3</h1>
-            <p className="text-sm text-gray-400">Video Enhancement System</p>
+            <h1 className="text-xl font-bold text-white">VisionEdge</h1>
+            <p className="text-sm text-gray-400">Video Enhancement Platform by Team SW3</p>
           </div>
         </div>
         

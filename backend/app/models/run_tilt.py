@@ -3,6 +3,7 @@ import numpy as np
 import time
 import sys
 import os
+import json
 
 def calculate_tilt_angle(homography_matrix):
     a = homography_matrix[0, 0]
@@ -28,9 +29,9 @@ def determine_direction_from_matches(matches, kp1, kp2):
         
     avg_x_shift = np.mean(x_displacements)
     if avg_x_shift > 1.0:
-        return "right tilt"
-    elif avg_x_shift < -1.0:
         return "left tilt"
+    elif avg_x_shift < -1.0:
+        return "right tilt"
     else:
         return "no tilt"
 
@@ -61,10 +62,17 @@ def process_video_with_overlay(video_path, output_path="output.mp4"):
     CAMERA_CALIB_ANGLE = 32.46
     CORRECTION_FACTOR = 1.0 / np.sin(np.radians(CAMERA_CALIB_ANGLE))
 
+    frame_timings = []
+    frame_count = 0
+    total_processing_time = 0
+    start_time = time.time()
+
     while True:
         ret, frame = cap.read()
         if not ret:
             break
+
+        frame_start_time = time.time()
 
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         kp1, des1 = orb.detectAndCompute(prev_gray, None)
@@ -102,8 +110,43 @@ def process_video_with_overlay(video_path, output_path="output.mp4"):
 
         prev_gray = gray.copy()
 
+        frame_processing_time = time.time() - frame_start_time
+        total_processing_time += frame_processing_time
+
+        frame_timings.append({
+            "frame_number": frame_count,
+            "total_time": frame_processing_time,
+            "classify_time": 0,
+            "process_time": frame_processing_time,
+            "is_low_light": True,
+            "was_enhanced": True,
+            "direction": direction,
+            "total_tilt": total_tilt,
+            "timestamp": time.time()
+        })
+        frame_count += 1
+
     cap.release()
     out.release()
+
+    elapsed_time = time.time() - start_time
+    timing_output_path = output_path.replace('.mp4', '_timings.json')
+    timing_data = {
+        "processing_method": "tilt_correction",
+        "total_input_frames": frame_count,
+        "total_processing_time_seconds": elapsed_time,
+        "avg_time_per_frame_seconds": total_processing_time / frame_count if frame_count > 0 else 0,
+        "frame_by_frame_timings": frame_timings,
+        "video_info": {
+            "input_path": video_path,
+            "output_path": output_path,
+            "original_fps": fps,
+            "output_resolution": f"{width}x{height}"
+        }
+    }
+
+    with open(timing_output_path, 'w') as f:
+        json.dump(timing_data, f, indent=2)
 
     # Add audio from original video to the processed video and re-encode to H.264
     command = [
