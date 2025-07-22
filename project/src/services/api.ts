@@ -212,4 +212,22 @@ static async getMultiProcessTimings(sessionIds: string[]): Promise<any[]> {
       throw error;
     }
   }
+
+  static async getRaindropFrameTimings(sessionId: string): Promise<any> {
+    try {
+      const response = await fetch(`${RAINDROP_API}/raindrop_frame_timings/${sessionId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to fetch raindrop frame timings: ${response.statusText}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching raindrop frame timings:', error);
+      return null;
+    }
+  }
 }

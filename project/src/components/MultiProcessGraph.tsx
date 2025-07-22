@@ -27,12 +27,12 @@ export const MultiProcessGraph: React.FC<MultiProcessGraphProps> = ({ loading, l
 
   // Method colors
   const methodColors: { [key: string]: string } = {
-    'clahe': '#14B8A6',
-    'unet': '#3B82F6',
-    'glare': '#F59E0B',
+    'clahe_with_classifier': '#14B8A6',
+    'unet_with_classifier': '#3B82F6',
+    'glare_reduction': '#F59E0B',
     'deraining': '#8B5CF6',
     'dehazing': '#10B981',
-    'tilt': '#EF4444'
+    'tilt_correction': '#EF4444'
   };
 
   useEffect(() => {
@@ -47,16 +47,20 @@ export const MultiProcessGraph: React.FC<MultiProcessGraphProps> = ({ loading, l
     
     try {
       // Get the base filename from the latest processed video
-      const baseFilename = latestVideoInfo.output_file?.split('/').pop()?.replace('.mp4', '') || 'processed_video';
-      
+      const originalInputFile = latestVideoInfo.input_file?.split('/').pop() || 'video.mp4';
+      const baseFilename = originalInputFile.substring(0, originalInputFile.lastIndexOf('.')) || originalInputFile;
+      console.log('Base filename for multi-process data:', baseFilename);
       // Try to load timing data for different methods
       // These would be the actual JSON files from your processing runs
       const sessionIds = [
-        `${baseFilename}_clahe`,
-        `${baseFilename}_unet`, 
-        `${baseFilename}_glare`,
-        `${baseFilename}_deraining`,
-        `${baseFilename}_dehazing`
+        `processed_unet_${baseFilename}`,
+        `processed_clahe_${baseFilename}`,
+        `processed_glare-dim_${baseFilename}`,
+        `processed_tilt_${baseFilename}`,
+        `processed_flare-reduction_${baseFilename}`,
+        `processed_dehazing_${baseFilename}`,
+        `processed_deraining_${baseFilename}`,
+        `processed_combined_${baseFilename}`
       ];
 
       console.log('Loading timing data for session IDs:', sessionIds);
@@ -81,10 +85,10 @@ export const MultiProcessGraph: React.FC<MultiProcessGraphProps> = ({ loading, l
     const processes: ProcessData[] = [];
 
     timingDataArray.forEach(timingData => {
-      if (!timingData || !timingData.frame_timings) return;
+      if (!timingData || !timingData.frame_by_frame_timings) return;
 
       const method = timingData.processing_method || 'unknown';
-      const frameTimings = timingData.frame_timings;
+      const frameTimings = timingData.frame_by_frame_timings;
 
       // Convert JSON data to our format
       const frameData = frameTimings.map((timing: any) => ({
@@ -313,7 +317,6 @@ export const MultiProcessGraph: React.FC<MultiProcessGraphProps> = ({ loading, l
               </div>
               <div className="text-xs text-gray-300 space-y-1">
                 <div>Avg Time: {process.avgTime.toFixed(3)}s</div>
-                <div>Enhancement: {process.enhancementRate.toFixed(1)}%</div>
                 <div>Frames: {process.frameData.length}</div>
               </div>
             </div>

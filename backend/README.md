@@ -12,7 +12,7 @@ This backend provides a unified API for various video enhancement models, includ
 
 2.  **Run the Server:**
     ```bash
-    python -m uvicorn app.main:app --host 0.0.0.0 --port 8001
+    python -m uvicorn app.main:app --host 0.0.0.0 --port 8001 --reload
     ```
 
 ## API

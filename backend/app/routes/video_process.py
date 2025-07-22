@@ -15,6 +15,17 @@ client = MongoClient("mongodb://localhost:27017")
 db = client["video_processing_logs"]
 logs_collection = db["processing_logs"]
 
+progress_updates = {}
+
+@router.post("/progress/{session_id}")
+async def update_progress(session_id: str, progress: dict):
+    progress_updates[session_id] = progress
+    return {"status": "ok"}
+
+@router.get("/progress/{session_id}")
+async def get_progress(session_id: str):
+    return progress_updates.get(session_id, {"progress": 0, "total": 0})
+
 @router.post("/process_video/")
 async def process_video(
     file: UploadFile = File(...),
@@ -120,18 +131,17 @@ async def get_processing_logs():
 @router.get("/logs/latest")
 async def get_latest_log():
     """
-    Fetch the most recent processing log from MongoDB.
+    Fetch the last inserted processing log from MongoDB (natural order).
     Returns the latest log entry or null if no logs exist.
     """
     try:
-        # Query MongoDB for the most recent log
+        # Query MongoDB for the last inserted log (natural order)
         latest_log = logs_collection.find_one(
-            {},  # No filter
-            {"_id": 0}  # Exclude MongoDB's _id field
-        , sort=[("timestamp", -1)])  # Sort by timestamp descending
-        
+            {},
+            {"_id": 0},
+            sort=[("_id", -1)]  # Sort by MongoDB's _id (insertion order)
+        )
         if latest_log:
-            # Convert datetime to ISO string for JSON serialization
             if isinstance(latest_log.get("timestamp"), datetime):
                 latest_log["timestamp"] = latest_log["timestamp"].isoformat()
             return latest_log

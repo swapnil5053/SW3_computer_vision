@@ -32,7 +32,7 @@ export const Analytics: React.FC<AnalyticsProps> = ({ isVisible, onClose }) => {
         try {
           const fullFilename = latestLog.video.output_file.split('/').pop() || '';
           const sessionId = fullFilename.substring(0, fullFilename.lastIndexOf('.')) || fullFilename;
-          
+          console.log(latestLog.process_category)
           console.log('🔍 Loading frame timings for:', {
             output_file: latestLog.video.output_file,
             extracted_filename: fullFilename,
@@ -40,12 +40,12 @@ export const Analytics: React.FC<AnalyticsProps> = ({ isVisible, onClose }) => {
             expected_timing_file: `${sessionId}_timings.json`
           });
           
+          // Use the same function for all models, but check process_category for endpoint selection
           const timings = await APIService.getFrameTimings(sessionId);
-          
           if (timings && !timings.error) {
             setFrameTimings(timings);
           } else {
-            setFrameTimings(null); // Ensure fallback is triggered if timings are invalid
+            setFrameTimings(null);
           }
         } catch (error) {
           console.error('Failed to load frame timings:', error);
@@ -59,11 +59,28 @@ export const Analytics: React.FC<AnalyticsProps> = ({ isVisible, onClose }) => {
   // ✅ FIXED: Effect for preparing graph data is now at the top level.
   useEffect(() => {
     if (!latestLog) {
-      setGraphData(null); // Clear data if there's no log
+      setGraphData(null);
       return;
     }
-
     const { video, performance } = latestLog;
+
+    // --- Handle raindrop_removal pipeline ---
+    if (
+      frameTimings &&
+      frameTimings.processing_method === "raindrop_removal" &&
+      frameTimings.frame_by_frame_timings
+    ) {
+      const pipelineFrameData = frameTimings.frame_by_frame_timings.map((timing: any) => ({
+        frame: timing.frame_number,
+        time: timing.total_time,
+        processTime: timing.process_time, // <-- Combined ARDCNN + LaMa
+        wasProcessed: timing.was_processed,
+        timestamp: timing.timestamp
+      }));
+      setGraphData(pipelineFrameData);
+      return;
+    }
+    // --- End raindrop_removal block ---
 
     // Happy path: Use real timing data if available
     if (frameTimings && frameTimings.frame_by_frame_timings) {
@@ -110,7 +127,7 @@ export const Analytics: React.FC<AnalyticsProps> = ({ isVisible, onClose }) => {
     try {
       const [allLogs, latest] = await Promise.all([
         APIService.getProcessingLogs(),
-        APIService.getLatestLog()
+        APIService.getLatestLog(),
       ]);
       setLogs(allLogs);
       setLatestLog(latest);
@@ -167,6 +184,7 @@ export const Analytics: React.FC<AnalyticsProps> = ({ isVisible, onClose }) => {
     }
 
     // Render graph using data from the top-level state
+    if (!latestLog) return null;
     return <LineGraph frameData={graphData} performance={latestLog.performance} onRefresh={loadLogs} />;
   };
 
@@ -262,10 +280,6 @@ export const Analytics: React.FC<AnalyticsProps> = ({ isVisible, onClose }) => {
                 <span className="text-gray-400">Total Frames:</span>
                 <span className="text-white">{video.total_frames.toLocaleString()}</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-400">Processed:</span>
-                <span className="text-white">{video.processed_frames.toLocaleString()}</span>
-              </div>
             </div>
           </div>
 
@@ -308,10 +322,6 @@ export const Analytics: React.FC<AnalyticsProps> = ({ isVisible, onClose }) => {
           </h5>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
             <div className="space-y-2">
-              <div className="flex justify-between">
-                <span className="text-gray-400">Method:</span>
-                <span className="text-white">{process_category}</span>
-              </div>
               <div className="flex justify-between">
                 <span className="text-gray-400">Model:</span>
                 <span className="text-white">{model_used}</span>
@@ -432,7 +442,6 @@ export const Analytics: React.FC<AnalyticsProps> = ({ isVisible, onClose }) => {
       <div className="p-6 flex-1 overflow-y-auto">
         {activeTab === 'graph' && renderPerformanceGraph()}
         {activeTab === 'details' && renderProcessingDetails()}
-        {activeTab === 'multiprocess' && <MultiProcessGraph loading={loading} />}
         {activeTab === 'multiprocess' && <MultiProcessGraph loading={loading} latestVideoInfo={latestLog?.video} />}
       </div>
     </div>

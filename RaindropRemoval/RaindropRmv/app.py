@@ -14,6 +14,84 @@ import numpy as np
 import requests
 from typing import Optional, Union
 from PIL import Image
+import json
+# --- MongoDB logging ---
+from pymongo import MongoClient
+from datetime import datetime
+import platform
+import GPUtil
+import psutil
+
+# Use host.docker.internal for Docker container access to host MongoDB
+MONGO_URI = "mongodb://host.docker.internal:27017"
+try:
+    mongo_client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=3000)
+    mongo_client.server_info()
+    mongo_db = mongo_client["video_processing_logs"]
+    mongo_logs_collection = mongo_db["processing_logs"]
+except Exception as e:
+    print(f"MongoDB connection failed: {e}")
+    mongo_logs_collection = None
+
+def get_device_specs():
+    cpu = platform.processor() or platform.machine()
+    gpus = GPUtil.getGPUs()
+    gpu = gpus[0].name if gpus else "None"
+    return cpu, gpu
+
+def log_run(
+    process: str,
+    model_used: str,
+    video_duration: float,
+    resolution: str,
+    fps: float,
+    total_frames: int,
+    processed_frames: int,
+    total_time: float,
+    avg_delay_per_frame: float,
+    device: str,
+    cpu_usage: float,
+    gpu_usage: float,
+    input_file: str,
+    output_file: str,
+    error: Optional[str] = None
+):
+    cpu_name, gpu_name = get_device_specs()
+    log_entry = {
+        "timestamp": datetime.utcnow(),
+        "process_category": process,
+        "model_used": model_used,
+        "video": {
+            "input_file": input_file,
+            "output_file": output_file,
+            "duration": video_duration,
+            "resolution": resolution,
+            "fps": fps,
+            "total_frames": total_frames,
+            "processed_frames": processed_frames
+        },
+        "performance": {
+            "total_time": total_time,
+            "avg_delay_per_frame": avg_delay_per_frame,
+            "cpu_usage_percent": cpu_usage,
+            "gpu_usage_percent": gpu_usage,
+            "device_used": device,
+            "device_specs": {
+                "cpu": cpu_name,
+                "gpu": gpu_name
+            }
+        },
+        "status": "error" if error else "success",
+        "error_message": error
+    }
+    if mongo_logs_collection is not None:
+        try:
+            mongo_logs_collection.insert_one(log_entry)
+            print("Log inserted successfully.")
+        except Exception as e:
+            print(f"Failed to log run: {e}")
+    else:
+        print("Warning: mongo_logs_collection is None. Log entry not saved to MongoDB.")
 
 
 # Get the host URL for callbacks, with fallbacks for different environments
@@ -141,6 +219,7 @@ async def detect_and_pipeline(
             frame_count = 0
             processed_count = 0
             successful_frames = 0
+            frame_timings = []  # For storing per-frame timings
             
             print(f"🎥 Starting pipeline for video: {os.path.basename(video_path)}")
             print(f"📊 Video FPS: {fps}, Target frame rate: {frame_rate or 1}")
@@ -161,19 +240,19 @@ async def detect_and_pipeline(
                     frame_count += 1
                     continue
                 
-                # STEP 1: ARDCNN Detection (in memory)
+                # STEP 1: ARDCNN Detection (timing)
+                ardcnn_start = time.time()
                 original_frame = frame.copy()
                 resized_frame = cv2.resize(frame, (512, 256))
                 normalized_frame = resized_frame.astype(np.float32) / 255.0
                 frame_batch = np.expand_dims(normalized_frame, axis=0)
-                
                 prediction = model.predict(frame_batch, verbose=0)[0]
                 mask = np.where(prediction < 0.5, 0, 255).astype(np.uint8)
-                
-                # Resize mask back to original frame size
                 mask_resized = cv2.resize(mask.squeeze(), (original_frame.shape[1], original_frame.shape[0]))
+                ardcnn_time = time.time() - ardcnn_start
                 
-                # STEP 2: Send to LaMa (in memory via HTTP)
+                # STEP 2: LaMa Inpainting (timing)
+                lama_start = time.time()
                 frame_rgb = cv2.cvtColor(original_frame, cv2.COLOR_BGR2RGB)
                 frame_pil = Image.fromarray(frame_rgb)
                 frame_buffer = BytesIO()
@@ -196,66 +275,96 @@ async def detect_and_pipeline(
                     'frame_index': str(processed_count)
                 }
                 
-                # STEP 3: Call LaMa
-                response = requests.post(
+                lama_response = requests.post(
                     f"{lama_service_url}/inpaint",
                     files=files,
                     data=lama_data,
                     timeout=30
                 )
+                lama_time = time.time() - lama_start
                 
-                if response.status_code == 200:
-                    lama_result = response.json()
-                    
-                    # STEP 4: Save inpainted frame locally
-                    if lama_result['results'] and len(lama_result['results']) > 0:
-                        result_data = lama_result['results'][0]
-                        
-                        if result_data['format'] == 'base64':
-                            # Decode base64 and save frame
-                            import base64
-                            frame_data = base64.b64decode(result_data['data'])
-                            frame_filename = f"frame_{processed_count:06d}_clean.png"
-                            frame_path = os.path.join(output_frames_dir, frame_filename)
-                            
-                            with open(frame_path, 'wb') as f:
-                                f.write(frame_data)
-                            
-                            successful_frames += 1
-                            print(f" Frame {processed_count} processed and saved")
-                        else:
-                            print(f"⚠ Frame {processed_count} - unexpected format")
-                    else:
-                        print(f" Frame {processed_count} - no results from LaMa")
-                else:
-                    print(f" Frame {processed_count} - LaMa failed: HTTP {response.status_code}")
+                lama_result = lama_response.json().get('results', [{}])[0]
+                
+                # Save frame if successful
+                if lama_response.status_code == 200 and lama_result.get('data'):
+                    frame_data = base64.b64decode(lama_result['data'])
+                    frame_filename = f"frame_{processed_count:06d}_clean.png"
+                    frame_path = os.path.join(output_frames_dir, frame_filename)
+                    with open(frame_path, 'wb') as f:
+                        f.write(frame_data)
+                    successful_frames += 1
+                
+                # Record timings for this frame
+                total_frame_time = ardcnn_time + lama_time
+                frame_timings.append({
+                    "frame_number": processed_count,
+                    "total_time": total_frame_time,
+                    "process_time": total_frame_time,
+                    "was_processed": lama_response.status_code == 200,
+                    "timestamp": time.time()
+                })
                 
                 processed_count += 1
                 frame_count += 1
-                
-                # Progress update
-                if processed_count % 10 == 0:
-                    print(f"📊 Processed {processed_count} frames, {successful_frames} successful")
             
             cap.release()
             
+            # Save timings for analytics/linegraph
+            timing_output_path = os.path.join(output_frames_dir, f"{output_video_name}_timings.json")
+            timing_data = {
+                "processing_method": "raindrop_removal",
+                "model_used": "ARDCNN + LaMa",
+                "total_input_frames": frame_count,
+                "frames_processed": processed_count,
+                "total_processing_time_seconds": sum([t["total_time"] for t in frame_timings]),
+                "avg_time_per_frame_seconds": sum([t["total_time"] for t in frame_timings]) / processed_count if processed_count > 0 else 0,
+                "frame_by_frame_timings": frame_timings,
+                "video_info": {
+                    "input_path": video_path,
+                    "output_path": output_video_name,
+                    "original_fps": fps,
+                    "output_resolution": f"{original_frame.shape[1]}x{original_frame.shape[0]}"
+                }
+            }
+            with open(timing_output_path, 'w') as f:
+                json.dump(timing_data, f, indent=2)
+            
             print(f"Video stitching: {successful_frames} successful frames")
+            # --- LOG TO MONGODB ---
+            try:
+                cpu_usage = psutil.cpu_percent()
+                gpu_usage = GPUtil.getGPUs()[0].load * 100 if GPUtil.getGPUs() else 0.0
+            except Exception:
+                cpu_usage = 0.0
+                gpu_usage = 0.0
+            log_run(
+                process="raindrop_removal",
+                model_used="ARDCNN + LaMa",
+                video_duration=timing_data["video_info"]["original_fps"] * timing_data["total_input_frames"] if timing_data["video_info"]["original_fps"] else 0,
+                resolution=timing_data["video_info"]["output_resolution"],
+                fps=timing_data["video_info"]["original_fps"],
+                total_frames=timing_data["total_input_frames"],
+                processed_frames=timing_data["frames_processed"],
+                total_time=timing_data["total_processing_time_seconds"],
+                avg_delay_per_frame=timing_data["avg_time_per_frame_seconds"],
+                device="GPU" if gpu_usage > 0 else "CPU",
+                cpu_usage=cpu_usage,
+                gpu_usage=gpu_usage,
+                input_file=timing_data["video_info"]["input_path"],
+                output_file=timing_data["video_info"]["output_path"],
+                error=None
+            )
             if successful_frames > 0:
                 output_video_path = f"/workspace/{output_video_name}"
                 frame_files = sorted([f for f in os.listdir(output_frames_dir) if f.endswith('.png')])
                 print(f"Found {len(frame_files)} frame files for stitching")
-
                 if frame_files:
-                    # Debug: List some frame files
                     print(f"Sample frame files: {frame_files[:5]}")
-                    
-                    # Use ffmpeg to stitch frames with simpler, more compatible settings
                     input_pattern = os.path.join(output_frames_dir, "frame_%06d_clean.png")
                     print(f"FFmpeg input pattern: {input_pattern}")
-
                     ffmpeg_cmd = [
                         "ffmpeg",
-                        "-y",  # Overwrite output file if exists
+                        "-y",
                         "-framerate", str(max(1, int(fps))),
                         "-i", input_pattern,
                         "-c:v", "libx264",
@@ -267,17 +376,13 @@ async def detect_and_pipeline(
                         "-crf", "28",
                         output_video_path
                     ]
-                    
                     print(f"Running FFmpeg command: {' '.join(ffmpeg_cmd)}")
-                    
                     try:
                         result = subprocess.run(ffmpeg_cmd, capture_output=True, text=True, check=True)
                         print(f"FFmpeg completed successfully")
-                        
                         if os.path.exists(output_video_path):
                             file_size = os.path.getsize(output_video_path)
                             print(f"Output video created: {output_video_path}, size: {file_size} bytes")
-                            
                             return JSONResponse(content={
                                 "status": "success",
                                 "message": "Pipeline completed",
@@ -289,13 +394,11 @@ async def detect_and_pipeline(
                         else:
                             print(f"Error: Output video file was not created")
                             return JSONResponse(status_code=500, content={"error": "Video file not created"})
-                            
                     except subprocess.CalledProcessError as e:
                         print(f"FFmpeg error: {e}")
                         print(f"FFmpeg stderr: {e.stderr}")
                         print(f"FFmpeg stdout: {e.stdout}")
                         return JSONResponse(status_code=500, content={"error": f"Video stitching failed: {e.stderr}"})
-                        
                 else:
                     return JSONResponse(status_code=500, content={"error": "No frames for stitching"})
             else:
@@ -726,6 +829,23 @@ def list_output_files():
             status_code=500,
             content={"error": f"Failed to list files: {str(e)}"}
         )
+
+@app.get("/raindrop_frame_timings/{session_id}")
+def get_raindrop_frame_timings(session_id: str):
+    """Serve frame-by-frame timings for raindrop_removal pipeline for analytics/linegraph."""
+    import os, json
+    # Search for any file containing the session_id and ending with _timings.json
+    output_dir = "output_frames"
+    found_file = None
+    for fname in os.listdir(output_dir):
+        if session_id in fname and fname.endswith("_timings.json"):
+            found_file = os.path.join(output_dir, fname)
+            break
+    if not found_file:
+        return JSONResponse(status_code=404, content={"error": f"Timing file not found for session: {session_id}"})
+    with open(found_file, "r") as f:
+        timing_data = json.load(f)
+    return JSONResponse(content=timing_data)
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

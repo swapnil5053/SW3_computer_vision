@@ -12,6 +12,7 @@ import traceback
 import io
 import base64
 from PIL import Image
+import time
 
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.responses import JSONResponse, FileResponse
@@ -173,31 +174,27 @@ async def inpaint(
             # Read and process
             image_content = await image_file.read()
             mask_content = await mask_file.read()
-            
             image_pil = Image.open(io.BytesIO(image_content)).convert('RGB')
             mask_pil = Image.open(io.BytesIO(mask_content)).convert('L')
-            
             image_array = np.array(image_pil)
             mask_array = np.array(mask_pil)
-            
             if image_array.shape[:2] != mask_array.shape:
                 mask_pil = mask_pil.resize(image_pil.size)
                 mask_array = np.array(mask_pil)
-            
-            # Process with LaMa
+            # Measure LaMa latency
+            lama_start = time.time()
             result_array = process_image_pair_direct(image_array, mask_array)
-            
+            lama_time = time.time() - lama_start
             # Save result
             original_filename = image_file.filename or f"image_{i}"
             original_name = os.path.splitext(original_filename)[0]
             output_filename = f"{original_name}{filename_suffix}.png"
-            
             final_output_dir = output_dir
             os.makedirs(final_output_dir, exist_ok=True)
             output_path = os.path.join(final_output_dir, output_filename)
-            
+            result_pil = Image.fromarray(result_array)
+            result_pil.save(output_path, format='PNG')
             if return_format == "base64":
-                result_pil = Image.fromarray(result_array)
                 buffer = io.BytesIO()
                 result_pil.save(buffer, format='PNG')
                 result_b64 = base64.b64encode(buffer.getvalue()).decode()
@@ -206,18 +203,18 @@ async def inpaint(
                     "original_filename": original_filename,
                     "output_filename": output_filename,
                     "data": result_b64,
-                    "format": "base64"
+                    "format": "base64",
+                    "processing_time_ms": int(lama_time * 1000)
                 })
             else:
-                result_pil = Image.fromarray(result_array)
-                result_pil.save(output_path, format='PNG')
                 output_files.append(output_path)
                 results.append({
                     "index": i,
                     "original_filename": original_filename,
                     "output_filename": output_filename,
                     "output_path": output_path,
-                    "format": "file"
+                    "format": "file",
+                    "processing_time_ms": int(lama_time * 1000)
                 })
         
         return JSONResponse(content={
