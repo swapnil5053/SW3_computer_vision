@@ -12,7 +12,6 @@ import json
 import traceback
 from PIL import Image
 
-# === Argument Parsing ===
 if len(sys.argv) != 3:
     print("Usage: python run_unet_classifier.py <input_video_path> <output_video_path>")
     sys.exit(1)
@@ -82,7 +81,7 @@ def tensor_to_image(tensor):
     img = tensor.detach().cpu().numpy().squeeze(0)
     img = np.transpose(img, (1, 2, 0))
     img = (img * 255).clip(0, 255).astype(np.uint8)
-    return cv2.cvtColor(img, cv2.COLOR_RGB2BGR) # Convert back to BGR for OpenCV
+    return cv2.cvtColor(img, cv2.COLOR_RGB2BGR) 
 
 # === Video Processing ===
 try:
@@ -91,30 +90,26 @@ try:
     if not cap.isOpened():
         raise FileNotFoundError(f"Error: Couldn't open video: {input_path}")
 
-    # === FIX 1: Get ORIGINAL video properties ===
     original_fps = cap.get(cv2.CAP_PROP_FPS)
     original_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     original_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     print(f"Input video: {original_width}x{original_height} @ {original_fps:.2f} FPS")
 
-    # === FIX 2: Use ORIGINAL FPS for the output video writer ===
-    fourcc = cv2.VideoWriter_fourcc(*'H264') # Use 'mp4v' for better compatibility
+    fourcc = cv2.VideoWriter_fourcc(*'H264') 
     out = cv2.VideoWriter(output_path, fourcc, original_fps, (original_width, original_height))
 
-    # --- Processing Loop Variables ---
     frame_count = 0
     model_runs = 0
     enhanced_frames = 0
     start_time = time.time()
     frame_timings = []
     
-    # This will hold the last frame that was processed to write during skipped frames
     last_processed_frame = None
 
     while True:
         ret, frame = cap.read()
         if not ret:
-            break # End of video
+            break 
 
         # Process one frame, then skip `frame_skip` frames
         if frame_count % (frame_skip + 1) == 0:
@@ -141,11 +136,10 @@ try:
 
                 output_img_small = tensor_to_image(output_tensor)
                 
-                # === FIX 3: Resize the processed frame back to the ORIGINAL dimensions ===
                 last_processed_frame = cv2.resize(output_img_small, (original_width, original_height), interpolation=cv2.INTER_CUBIC)
                 enhanced_frames += 1
             else:
-                # If not low-light, the original frame is the "processed" frame
+                # If not low-light, the original frame is the processed frame
                 last_processed_frame = frame
             
             process_time = time.time() - process_start
