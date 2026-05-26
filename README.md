@@ -7,8 +7,7 @@
 
 > **Advanced AI/ML Video Processing Pipeline for Environmental and Operational Degradation**
 
-![Vision Edge Dashboard](./docs/dashboard.jpg)
-*(Note: Create a `docs` folder and add your dashboard screenshot as `dashboard.jpg`)*
+![Vision Edge Dashboard](./docs/dashboard.jpg.png)
 
 ---
 
@@ -31,7 +30,6 @@ Real-world visual data is frequently compromised by environmental factors (haze,
 ---
 
 ## Architecture & Data Flow
-
 ```mermaid
 graph LR
     UI[React Dashboard] -->|1. Upload Video| API[FastAPI Backend]
@@ -51,11 +49,8 @@ graph LR
         Derain --> Recon
     end
 
-    Recon -->|3. Compile & Stream| UI
+    Recon -->|3. Stream Result| Output[Enhanced Video Player]
 ```
-
----
-
 ## Tech Stack
 
 * **Machine Learning:** PyTorch, OpenCV, BasicSR, Scikit-Image
